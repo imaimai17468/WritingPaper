@@ -1,7 +1,7 @@
 import * as React from 'react';
-import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import Box from '@mui/material/Box';
 
 interface Props {
     mainText: string;
@@ -9,36 +9,13 @@ interface Props {
 }
 
 export default function BasicPopover(props: Props) {
-    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-  
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-      setAnchorEl(event.currentTarget);
-    };
-  
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
-  
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popover' : undefined;
-  
     return (
-      <div>
-        <Button aria-describedby={id} variant="contained" onClick={handleClick}>
-          {props.mainText}
-        </Button>
-        <Popover
-          id={id}
-          open={open}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-        >
-          <Typography sx={{ p: 2 }}>{props.popText}</Typography>
-        </Popover>
-      </div>
+      <Box component={'div'}>
+        <Tooltip title={props.popText} placement='left' arrow>
+          <Button variant="contained">
+            {props.mainText}
+          </Button>
+        </Tooltip>
+      </Box>
     );
   }
