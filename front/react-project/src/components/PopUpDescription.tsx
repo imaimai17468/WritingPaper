@@ -11,7 +11,7 @@ interface Props {
 export default function PopUpDescription(props: Props) {
     return(
         <Box component={'div'} sx={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
-            <BasicPopover mainText={props.mainText} popText={props.popText} />
+            <BasicPopover mainText={props.mainText} popText={props.popText} placement={'left'} />
             <Typography sx={{px:2}}>{props.description}</Typography>
         </Box>
     );

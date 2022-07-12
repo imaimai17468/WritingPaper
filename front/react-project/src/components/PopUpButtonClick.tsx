@@ -7,13 +7,15 @@ interface Props {
   mainText: string;
   popText: string;
   placement: 'top' | 'bottom' | 'left' | 'right';
+  code: string;
+  setCode: Function;
 }
 
 export default function PopUpButton(props: Props) {
   return (
     <Box component={'div'}>
       <Tooltip title={props.popText} placement={props.placement} arrow>
-        <Button variant="contained">{props.mainText}</Button>
+        <Button variant="contained" onClick={() => props.setCode(props.code + props.mainText)}>{props.mainText}</Button>
       </Tooltip>
     </Box>
   );
