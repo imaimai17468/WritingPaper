@@ -16,9 +16,13 @@ app.add_middleware(
 def get_root():
     return {"message": "Hello World"}
 
+class TestParam(BaseModel):
+    input : str
+    code : str
+    
 @app.post("/")
-def post_root():
-    return {"message": "Hello World"}
+def post_root(test: TestParam):
+    return (test.input + test.code)
 
 # メインプロセス       
 if __name__ == '__main__':

@@ -4,22 +4,29 @@ import { Box, Typography, Button } from '@mui/material';
 import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material'
 import { TextField } from '@mui/material'
 import IconButton from '@mui/material/IconButton';
-import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PopUpDescription from '../components/PopUpDescription';
 import Keyboard from '../components/Keyboard';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Toolbar, AppBar } from '@mui/material';
 import InvertColorsIcon from '@mui/icons-material/InvertColors';
-import { style } from '@mui/system';
+import axios from 'axios';
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
 function App() {
   const [inputText, setInputText] = useState<string>('');
   const [codeText, setCodeText] = useState<string>('');
-  const theme = useTheme();
+  const [output, setOutput] = useState<string>('');
   const colorMode = useContext(ColorModeContext);
+
+  const handleOnClick = async () => {
+    console.log('test');
+    const resultText = await axios.post('http://localhost:3000/', {'intput': inputText, 'code': codeText});
+    setOutput(resultText.data);
+    console.log(resultText.data);
+  }
 
   return (
     <Box>
@@ -44,7 +51,7 @@ function App() {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography color={'#E4DCCF'} >Description</Typography>
+            <Typography>Description</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Box component={'div'} sx={{display: 'flex', flexDirection: 'column', gap: 1}}>
@@ -66,7 +73,7 @@ function App() {
             <Keyboard code={codeText} setCode={setCodeText} />
           </Box>
           <Box component={'div'} sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: '40%', gap:2, minWidth: 300}}>
-            <Button variant="contained">RUN</Button>
+            <Button variant="contained" onClick={handleOnClick}>RUN</Button>
             <TextField label='output' multiline minRows={18} maxRows={18} fullWidth inputProps={{readOnly: true}}/>
           </Box>
         </Box>
