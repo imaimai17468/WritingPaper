@@ -21,11 +21,13 @@ function App() {
   const [output, setOutput] = useState<string>('');
   const colorMode = useContext(ColorModeContext);
 
-  const handleOnClick = async () => {
+  const handleOnClick = () => {
     console.log('test');
-    const resultText = await axios.post('http://localhost:3000/', {'intput': inputText, 'code': codeText});
-    setOutput(resultText.data);
-    console.log(resultText.data);
+    axios.post('http://localhost:3000/', {'input': inputText, 'code': codeText})
+    .then((response) => {
+      console.log(response);
+      setOutput(response.data);
+    });
   }
 
   return (
@@ -74,7 +76,7 @@ function App() {
           </Box>
           <Box component={'div'} sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: '40%', gap:2, minWidth: 300}}>
             <Button variant="contained" onClick={handleOnClick}>RUN</Button>
-            <TextField label='output' multiline minRows={18} maxRows={18} fullWidth inputProps={{readOnly: true}}/>
+            <TextField label='output' value={output} multiline minRows={18} maxRows={18} fullWidth inputProps={{readOnly: true}}/>
           </Box>
         </Box>
       </Box>
