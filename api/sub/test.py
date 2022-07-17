@@ -1,25 +1,3 @@
-import os
-from fastapi import FastAPI
-from pydantic import BaseModel
-from starlette.middleware.cors import CORSMiddleware
-
-app = FastAPI()
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"]
-)
-
-# '>' -> '－'   increment the pointer.
-# '<' -> '-'   decrement the pointer.
-# '+' -> '‐'   increment the value at the pointer.
-# '-' -> '−'   decrement the value at the pointer.
-# '.' -> '‒'   output the value at the  pointer as utf-8 character.
-# ',' -> '—'   accept one byte of input, storing its value in the mem at the  pointer.
-# '[' -> '–'   if the byte at the pointer is zero, then jump it to the matching ']'
-# ']' -> '―'   if the byte at the pointer is nonzero, then jump it buck to the matching '['
 def preprocess(ocode):
     tokens = [r'－', r'-', r'‐', r'−', r'‒', r'—', r'–', r'―']
     repls = ['>', '<', '+', '-', '.', ',', '[', ']']
@@ -39,11 +17,12 @@ def writing_paper_api(input, code):
     head = 0
     input_head = 0
     code = preprocess(code)
+    print(code)
     code_list = list(code)
     input_list = list(input)
     while head < len(code_list):
         if ptr >= len(mem):
-            output += "list index out of range\n"
+            output += "\nlist index out of range\n"
             return output
         
         if code_list[head] == '+':
@@ -58,7 +37,7 @@ def writing_paper_api(input, code):
                 while count != 0:
                     head += 1
                     if head == len(code_list):
-                        output += "'―' is missing\n"
+                        output += "\n'―' is missing\n"
                         return output
                     if code_list[head] == '[':
                         count += 1
@@ -70,7 +49,7 @@ def writing_paper_api(input, code):
                 while count != 0:
                     head -= 1
                     if head < 0:
-                        output += "'–' is missing"
+                        output += "\n'–' is missing\n"
                     if code_list[head] == ']':
                         count += 1
                     elif code_list[head] == '[':
@@ -81,18 +60,18 @@ def writing_paper_api(input, code):
         elif code_list[head] == ',':
             #ord: code point -> char
             if input_head >= len(input_list):
-                output += "input is missing\n"
+                output += "\ninput is missing\n"
                 return output
             mem[ptr] = ord(input_list[input_head])
             input_head += 1
         elif code_list[head] == '>':
             ptr += 1       
             if ptr > mem_size:
-                output += "overflow!"
+                output += "\noverflow!\n"
                 return output
         elif code_list[head] == "<":
             if ptr == 0:
-                output += "Can't decrement anymore"
+                output += "\nCan't decrement anymore\n"
             ptr -= 1
         else:
             pass #ignore other symbol
@@ -100,20 +79,7 @@ def writing_paper_api(input, code):
         head += 1 
     
     return output
-
-class TestParam(BaseModel):
-    input : str
-    code : str
-
-@app.get("/")
-def get_root():
-    return {"message": "Hello World"}
     
-@app.post("/")
-def post_root(test: TestParam):
-    return writing_paper_api(test.input, test.code)
-    # return test.input + test.code
-
-# メインプロセス       
 if __name__ == '__main__':
-    print("Start")
+    str = input()
+    print(writing_paper_api('', str))    

@@ -22,7 +22,6 @@ function App() {
   const colorMode = useContext(ColorModeContext);
 
   const handleOnClick = () => {
-    console.log('test');
     axios.post('http://localhost:3000/', {'input': inputText, 'code': codeText})
     .then((response) => {
       console.log(response);
