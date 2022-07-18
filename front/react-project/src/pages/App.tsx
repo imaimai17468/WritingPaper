@@ -33,11 +33,10 @@ function App() {
     <Box>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position='static'>
-          <Toolbar>
-            <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-              WritingPaper
-            </Typography>
-            <IconButton color='inherit' onClick={colorMode.toggleColorMode}>
+          <Toolbar sx={{display: 'flex', flexDirection: 'row', gap: 3}}>
+            <Button color='inherit' disableRipple><Typography variant='h6'> WritingPaper </Typography></Button>
+            <Button color='inherit'>Converter</Button>
+            <IconButton sx={{marginLeft: 'auto'}} color='inherit' onClick={colorMode.toggleColorMode}>
               <InvertColorsIcon />
             </IconButton>
           </Toolbar>
@@ -86,6 +85,11 @@ function App() {
 export default function ToggleColorMode() {
   const [mode, setMode] = useState<'light' | 'dark'>('light');
   const theme = createTheme({
+    typography: {
+      button: {
+        textTransform: 'none',
+      }
+    },
     palette: {
       mode,
       ...(mode === 'light'
