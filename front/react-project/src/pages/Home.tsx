@@ -12,10 +12,11 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { Toolbar, AppBar } from '@mui/material';
 import InvertColorsIcon from '@mui/icons-material/InvertColors';
 import axios from 'axios';
+import { HomeMaxOutlined } from '@mui/icons-material';
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
-function App() {
+function Home() {
   const [inputText, setInputText] = useState<string>('');
   const [codeText, setCodeText] = useState<string>('');
   const [output, setOutput] = useState<string>('');
@@ -136,7 +137,7 @@ export default function ToggleColorMode() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <App />
+        <Home />
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
