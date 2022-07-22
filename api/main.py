@@ -101,18 +101,37 @@ def writing_paper_api(input, code):
     
     return output
 
-class TestParam(BaseModel):
+def bf2wp(ocode):
+    tokens = [r'－', r'‐', r'−', r'-', r'‒', r'—', r'–', r'―']
+    repls = ['>', '+', '-', '<', '.', ',', '[', ']']
+    rcode = ocode
+    for v in range(len(repls)):
+        rcode = rcode.replace(repls[v], tokens[v])
+    return rcode
+
+class RunParam(BaseModel):
     input : str
     code : str
+    
+class ConvParam(BaseModel):
+    code : str
+    mode : str
 
 @app.get("/")
 def get_root():
     return {"message": "Hello World"}
     
 @app.post("/")
-def post_root(test: TestParam):
+def post_root(test: RunParam):
     return writing_paper_api(test.input, test.code)
     # return test.input + test.code
+
+@app.post("/convert")
+def post_root(param: ConvParam):
+    if param.mode == 'Brainfuck':
+        return bf2wp(param.code)
+    else:
+        return preprocess(param.code)
 
 # メインプロセス       
 if __name__ == '__main__':

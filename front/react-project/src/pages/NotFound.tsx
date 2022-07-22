@@ -12,37 +12,21 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { Toolbar, AppBar } from '@mui/material';
 import InvertColorsIcon from '@mui/icons-material/InvertColors';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
-function Convert() {
+function NotFound() {
+  const [inputText, setInputText] = useState<string>('');
   const [codeText, setCodeText] = useState<string>('');
   const [output, setOutput] = useState<string>('');
-  const [inputText, setInputText] = useState<string>('Brainfuck');
-  const [outputText, setOutputText] = useState<string>('WritingPaper');
   const colorMode = useContext(ColorModeContext);
-  const Navigate = useNavigate();
 
   const handleOnClick = () => {
-    axios.post('http://localhost:3000/convert', {'code': codeText, 'mode': inputText})
+    axios.post('http://localhost:3000/', {'input': inputText, 'code': codeText})
     .then((response) => {
       console.log(response);
       setOutput(response.data);
     });
-  }
-
-  const handle2Convert = () => {
-    Navigate('/convert');
-  }
-
-  const handle2Home = () => {
-    Navigate('/');
-  }
-
-  const handleSwapLanguage = () => {
-    setInputText(outputText);
-    setOutputText(inputText);
   }
 
   return (
@@ -50,31 +34,15 @@ function Convert() {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position='static'>
           <Toolbar sx={{display: 'flex', flexDirection: 'row', gap: 3}}>
-            <Button color='inherit' disableRipple onClick={handle2Home}><Typography variant='h6'> WritingPaper </Typography></Button>
-            <Button color='inherit' onClick={handle2Convert}>Converter</Button>
+            <Button color='inherit' disableRipple><Typography variant='h6'> WritingPaper </Typography></Button>
+            <Button color='inherit'>Converter</Button>
             <IconButton sx={{marginLeft: 'auto'}} color='inherit' onClick={colorMode.toggleColorMode}>
               <InvertColorsIcon />
             </IconButton>
           </Toolbar>
         </AppBar>
-      </Box>
-      <Box component={'div'} sx={{
-        display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', mt: 6,
-      }}>
-        <Box sx={{mb: 3, display: 'flex', flexDirection: 'column'}}>
-          <Typography variant='h4'>Brainfuck to WritingPaper</Typography>
-          <Button variant="contained" onClick={handleSwapLanguage}>Swap Language</Button>
-        </Box>
-        <Box component={'div'} sx={{display: 'flex', flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap', gap: 10, width: '100%'}}>
-          <Box component={'div'} sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: '40%', minWidth: 300, gap: 3}}>
-            <TextField label={inputText} value={codeText} multiline minRows={15} maxRows={15} fullWidth onChange={(event) => {setCodeText(event.target.value)}}/>
-            <Button variant="contained" onClick={handleOnClick}>CONVERT</Button>
-          </Box>
-          <Box component={'div'} sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: '40%', gap:2, minWidth: 300}}>
-            <TextField label={outputText} value={output} multiline minRows={18} maxRows={18} fullWidth inputProps={{readOnly: true}}/>
-          </Box>
-        </Box>
-      </Box>
+    </Box>
+      <Typography variant='h5'>Not Found</Typography>
     </Box>
   );
 }
@@ -133,7 +101,7 @@ export default function ToggleColorMode() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Convert />
+        <NotFound />
       </ThemeProvider>
     </ColorModeContext.Provider>
   );

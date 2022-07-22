@@ -12,7 +12,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { Toolbar, AppBar } from '@mui/material';
 import InvertColorsIcon from '@mui/icons-material/InvertColors';
 import axios from 'axios';
-import { HomeMaxOutlined } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
@@ -21,6 +21,7 @@ function Home() {
   const [codeText, setCodeText] = useState<string>('');
   const [output, setOutput] = useState<string>('');
   const colorMode = useContext(ColorModeContext);
+  const Navigate = useNavigate();
 
   const handleOnClick = () => {
     axios.post('http://localhost:3000/', {'input': inputText, 'code': codeText})
@@ -30,19 +31,27 @@ function Home() {
     });
   }
 
+  const handle2Convert = () => {
+    Navigate('/convert');
+  }
+
+  const handle2Home = () => {
+    Navigate('/');
+  }
+
   return (
     <Box>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position='static'>
           <Toolbar sx={{display: 'flex', flexDirection: 'row', gap: 3}}>
-            <Button color='inherit' disableRipple><Typography variant='h6'> WritingPaper </Typography></Button>
-            <Button color='inherit'>Converter</Button>
+            <Button color='inherit' disableRipple onClick={handle2Home}><Typography variant='h6'> WritingPaper </Typography></Button>
+            <Button color='inherit' onClick={handle2Convert}>Converter</Button>
             <IconButton sx={{marginLeft: 'auto'}} color='inherit' onClick={colorMode.toggleColorMode}>
               <InvertColorsIcon />
             </IconButton>
           </Toolbar>
         </AppBar>
-    </Box>
+      </Box>
       <Box component={'div'} sx={{
         display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
       }}>
