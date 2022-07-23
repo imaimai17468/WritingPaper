@@ -1,13 +1,9 @@
 import React from 'react';
 import { useState, useContext } from 'react';
 import { Box, Typography, Button } from '@mui/material';
-import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material'
 import { TextField } from '@mui/material'
 import IconButton from '@mui/material/IconButton';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import PopUpDescription from '../components/PopUpDescription';
-import Keyboard from '../components/Keyboard';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Toolbar, AppBar } from '@mui/material';
 import InvertColorsIcon from '@mui/icons-material/InvertColors';
@@ -62,7 +58,7 @@ function Convert() {
         display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', mt: 6,
       }}>
         <Box sx={{mb: 3, display: 'flex', flexDirection: 'column'}}>
-          <Typography variant='h4'>Brainfuck to WritingPaper</Typography>
+          <Typography variant='h4'>Brainfuck ⇔ WritingPaper</Typography>
           <Button variant="contained" onClick={handleSwapLanguage}>Swap Language</Button>
         </Box>
         <Box component={'div'} sx={{display: 'flex', flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap', gap: 10, width: '100%'}}>
@@ -97,7 +93,7 @@ export default function ToggleColorMode() {
             },
             divider: '#E4DCCF',
             background: {
-              default: 'F0EBE3',
+              default: '#F0EBE3',
               paper: '#7D9D9C',
             },
             text: {

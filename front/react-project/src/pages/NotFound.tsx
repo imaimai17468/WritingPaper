@@ -1,13 +1,8 @@
 import React from 'react';
 import { useState, useContext } from 'react';
 import { Box, Typography, Button } from '@mui/material';
-import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material'
-import { TextField } from '@mui/material'
 import IconButton from '@mui/material/IconButton';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import PopUpDescription from '../components/PopUpDescription';
-import Keyboard from '../components/Keyboard';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Toolbar, AppBar } from '@mui/material';
 import InvertColorsIcon from '@mui/icons-material/InvertColors';
@@ -42,7 +37,7 @@ function NotFound() {
           </Toolbar>
         </AppBar>
     </Box>
-      <Typography variant='h5'>Not Found</Typography>
+      <Typography variant='h5' sx={{mt:3}}>Not Found</Typography>
     </Box>
   );
 }
@@ -65,7 +60,7 @@ export default function ToggleColorMode() {
             },
             divider: '#E4DCCF',
             background: {
-              default: 'F0EBE3',
+              default: '#F0EBE3',
               paper: '#7D9D9C',
             },
             text: {
