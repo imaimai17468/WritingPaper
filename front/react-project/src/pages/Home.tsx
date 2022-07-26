@@ -2,18 +2,19 @@ import React from 'react';
 import { useState, useContext } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { TextField } from '@mui/material'
-import IconButton from '@mui/material/IconButton';
+import { Toolbar, AppBar } from '@mui/material';
+import { Tabs, Tab } from '@mui/material'; 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import Link from '@mui/material/Link';
+import IconButton from '@mui/material/IconButton';
+import CssBaseline from '@mui/material/CssBaseline';
+import InvertColorsIcon from '@mui/icons-material/InvertColors';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import Keyboard from '../components/Keyboard';
 import Analyze from '../components/Analyze';
 import DetailAccordion from '../components/DetailAccordion';
 import SampleSelect from '../components/SampleSelect';
-import CssBaseline from '@mui/material/CssBaseline';
-import { Toolbar, AppBar } from '@mui/material';
-import InvertColorsIcon from '@mui/icons-material/InvertColors';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { Tabs, Tab } from '@mui/material'; 
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
@@ -122,6 +123,10 @@ function Home() {
             <TextField label='output' value={output} multiline minRows={18} maxRows={18} fullWidth inputProps={{readOnly: true}}/>
           </Box>
         </Box>
+      </Box>
+      <Box sx={{width: '100%', background: '#576F72', color: '#F0EBE3', position: 'absolute', bottom: 0, left: 0, textAlign: 'center'}}>
+      <Typography variant='body1'>Dev : imaimai17468</Typography>
+      <Link href='https://github.com/imaimai17468/WritingPaper' color='#F0EBE3'>Repository</Link>
       </Box>
     </Box>
   );
