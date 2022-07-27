@@ -100,6 +100,8 @@ function Home() {
           </Toolbar>
         </AppBar>
       </Box>
+      <Typography>{process.env.NODE_ENV}</Typography>
+      <Typography>{process.env.STATE}</Typography>
       <Box component={'div'} sx={{
         display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
       }}>
