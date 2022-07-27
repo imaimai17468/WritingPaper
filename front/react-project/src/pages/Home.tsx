@@ -100,10 +100,8 @@ function Home() {
           </Toolbar>
         </AppBar>
       </Box>
-      <Typography>{process.env.NODE_ENV}</Typography>
-      <Typography>{process.env.STATE}</Typography>
       <Box component={'div'} sx={{
-        display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
+        display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', mb: 10
       }}>
         <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', my: 4, gap: 3}}>
           <SampleSelect setCode={setCodeText} setInput={setInputText}/>
@@ -134,9 +132,9 @@ function Home() {
           </Box>
         </Box>
       </Box>
-      <Box sx={{width: '100%', background: '#576F72', color: '#F0EBE3', position: 'absolute', bottom: 0, left: 0, textAlign: 'center'}}>
-      <Typography variant='body1'>Dev : imaimai17468</Typography>
-      <Link href='https://github.com/imaimai17468/WritingPaper' color='#F0EBE3'>Repository</Link>
+      <Box sx={{width: '100%', background: '#576F72', color: '#F0EBE3', textAlign: 'center', marginTop: 'auto', position: 'fixed', bottom: 0}}>
+        <Typography variant='body1'>Dev : imaimai17468</Typography>
+        <Link href='https://github.com/imaimai17468/WritingPaper' color='#F0EBE3'>Repository</Link>
       </Box>
     </Box>
   );
