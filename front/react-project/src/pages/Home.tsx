@@ -67,7 +67,7 @@ function Home() {
         setOutput(response.data);
       });
     }else if(process.env.NODE_ENV == 'production') {
-      axios.post('https://writing-paper.vercel.app/', {'input': inputText, 'code': codeText})
+      axios.post('https://writing-paper-api.herokuapp.com/', {'input': inputText, 'code': codeText})
       .then((response) => {
         console.log(response);
         setOutput(response.data);
