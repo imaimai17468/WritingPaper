@@ -60,13 +60,13 @@ function Home() {
   const Navigate = useNavigate();
 
   const handleOnClick = () => {
-    if(process.env.NODE_ENV == 'development' || process.env.STATE == 'dev') {
+    if(process.env.NODE_ENV == 'development') {
       axios.post('http://localhost:3000/', {'input': inputText, 'code': codeText})
       .then((response) => {
         console.log(response);
         setOutput(response.data);
       });
-    }else if(process.env.NODE_ENV == 'production' || process.env.STATE == 'prod') {
+    }else if(process.env.NODE_ENV == 'production') {
       axios.post('https://writing-paper.vercel.app/', {'input': inputText, 'code': codeText})
       .then((response) => {
         console.log(response);

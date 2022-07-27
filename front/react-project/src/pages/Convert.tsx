@@ -21,11 +21,19 @@ function Convert() {
   const Navigate = useNavigate();
 
   const handleOnClick = () => {
-    axios.post('http://localhost:3000/convert', {'code': codeText, 'mode': inputText})
-    .then((response) => {
-      console.log(response);
-      setOutput(response.data);
-    });
+    if(process.env.NODE_ENV == 'development') {
+      axios.post('http://localhost:3000/convert', {'input': inputText, 'code': codeText})
+      .then((response) => {
+        console.log(response);
+        setOutput(response.data);
+      });
+    }else if(process.env.NODE_ENV == 'production') {
+      axios.post('https://writing-paper.vercel.app/convert', {'input': inputText, 'code': codeText})
+      .then((response) => {
+        console.log(response);
+        setOutput(response.data);
+      });
+    }
   }
 
   const handle2Convert = () => {
