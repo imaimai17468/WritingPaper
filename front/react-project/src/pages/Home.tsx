@@ -60,11 +60,19 @@ function Home() {
   const Navigate = useNavigate();
 
   const handleOnClick = () => {
-    axios.post('http://localhost:3000/', {'input': inputText, 'code': codeText})
-    .then((response) => {
-      console.log(response);
-      setOutput(response.data);
-    });
+    if(process.env.NODE_ENV == 'development' || process.env.STATE == 'dev') {
+      axios.post('http://localhost:3000/', {'input': inputText, 'code': codeText})
+      .then((response) => {
+        console.log(response);
+        setOutput(response.data);
+      });
+    }else if(process.env.NODE_ENV == 'production' || process.env.STATE == 'prod') {
+      axios.post('https://writing-paper.vercel.app/', {'input': inputText, 'code': codeText})
+      .then((response) => {
+        console.log(response);
+        setOutput(response.data);
+      });
+    }
   }
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
