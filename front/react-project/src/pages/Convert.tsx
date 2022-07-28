@@ -22,13 +22,13 @@ function Convert() {
 
   const handleOnClick = () => {
     if(process.env.NODE_ENV == 'development') {
-      axios.post('http://localhost:3000/convert', {'input': inputText, 'code': codeText})
+      axios.post('http://localhost:3000/convert', {'code': codeText, 'mode': inputText})
       .then((response) => {
         console.log(response);
         setOutput(response.data);
       });
     }else if(process.env.NODE_ENV == 'production') {
-      axios.post('https://writing-paper-api.herokuapp.com/convert', {'input': inputText, 'code': codeText})
+      axios.post('https://writing-paper-api.herokuapp.com/convert', {'code': codeText, 'mode': inputText})
       .then((response) => {
         console.log(response);
         setOutput(response.data);
